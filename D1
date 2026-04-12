@@ -1,0 +1,23 @@
+use std::io::{self, Write};
+use std::time::Instant;
+
+fn main() {
+    let words = vec!["rust", "safety", "speed", "compiler", "memory", "concurrency", "performance"];
+    let target = words[rand::random::<usize>() % words.len()];
+
+    println!("Daily Type Challenge: Type '{}'", target);
+    print!("> ");
+    io::stdout().flush().unwrap();
+
+    let start = Instant::now();
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let duration = start.elapsed();
+
+    let input = input.trim();
+    let accuracy = if input == target { 100 } else { 0 };
+
+    println!("\nResults:");
+    println!("Time: {:.2?}", duration);
+    println!("Accuracy: {}%", accuracy);
+}
