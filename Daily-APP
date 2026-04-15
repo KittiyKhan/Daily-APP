@@ -30,3 +30,50 @@ int main() {
 
     return 0;
 }
+
+// daily app
+
+import tkinter as tk
+from tkinter import messagebox
+from datetime import datetime
+
+class DailyApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Daily Task App")
+        self.root.geometry("300x400")
+
+        self.label = tk.Label(root, text=datetime.now().strftime("%A, %d %B"), font=("Arial", 14))
+        self.label.pack(pady=10)
+
+        self.entry = tk.Entry(root, width=25)
+        self.entry.pack(pady=5)
+
+        self.add_button = tk.Button(root, text="Add Task", command=self.add_task)
+        self.add_button.pack(pady=5)
+
+        self.tasks_listbox = tk.Listbox(root, width=40, height=10)
+        self.tasks_listbox.pack(pady=10)
+
+        self.delete_button = tk.Button(root, text="Delete Task", command=self.delete_task)
+        self.delete_button.pack(pady=5)
+
+    def add_task(self):
+        task = self.entry.get()
+        if task:
+            self.tasks_listbox.insert(tk.END, task)
+            self.entry.delete(0, tk.END)
+        else:
+            messagebox.showwarning("Warning", "Enter a task!")
+
+    def delete_task(self):
+        try:
+            index = self.tasks_listbox.curselection()[0]
+            self.tasks_listbox.delete(index)
+        except IndexError:
+            messagebox.showwarning("Warning", "Select a task to delete!")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = DailyApp(root)
+    root.mainloop()
