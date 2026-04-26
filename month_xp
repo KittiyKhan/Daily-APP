@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+
+using namespace std;
+
+struct Entry {
+    string date;
+    string description;
+    double amount;
+};
+
+int main() {
+    map<int, vector<Entry>> monthlyData;
+    int choice;
+
+    while (true) {
+        cout << "\n1. Add Entry\n2. View Month\n3. Exit\nChoice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            int month;
+            Entry e;
+            cout << "Month (1-12): "; cin >> month;
+            cout << "Date (DD/MM): "; cin >> e.date;
+            cout << "Description: "; cin.ignore(); getline(cin, e.description);
+            cout << "Amount: "; cin >> e.amount;
+            monthlyData[month].push_back(e);
+        } 
+        else if (choice == 2) {
+            int month;
+            cout << "Enter Month (1-12): "; cin >> month;
+            if (monthlyData.find(month) != monthlyData.end()) {
+                for (const auto& e : monthlyData[month]) {
+                    cout << e.date << " | " << e.description << " | $" << e.amount << endl;
+                }
+            } else {
+                cout << "No data for this month." << endl;
+            }
+        } 
+        else if (choice == 3) {
+            break;
+        }
+    }
+    return 0;
+}
