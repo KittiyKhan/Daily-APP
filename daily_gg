@@ -19,7 +19,7 @@ int main() {
         scanf("%d", &choice);
         getchar();
 
-        if (choice == 1 && count < MAX_TASKS) {
+        if (choice == 5 && count < MAX_TASKS) {
             printf("Enter task: ");
             fgets(list[count].title, MAX_LEN, stdin);
             list[count].title[strcspn(list[count].title, "\n")] = 0;
